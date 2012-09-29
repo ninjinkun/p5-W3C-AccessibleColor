@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use List::Util qw/max min/;
 use Exporter::Lite;
-our @EXPORT = qw/is_valid_color_pair/;
+our @EXPORT = qw/random_color_pair is_valid_color_pair/;
 
 sub is_valid_color_pair {
     my ($color1, $color2) = @_;
@@ -51,6 +51,18 @@ sub color_difference {
     return max( ($r1, $r2) ) - min( ($r1, $r2) )
          + max( ($g1, $g2) ) - min( ($g1, $g2) )
          + max( ($b1, $b2) ) - min( ($b1, $b2) );
+}
+
+sub random_color {
+    return [ int(255 * rand), int(255 * rand), int(255 * rand) ];
+}
+
+sub random_color_pair {
+    while (1) {
+        my $color1 = random_color();
+        my $color2 = random_color();
+        return ($color1, $color2)  if is_valid_color_pair($color1, $color2);
+    }
 }
 
 1;
